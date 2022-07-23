@@ -1,13 +1,27 @@
-<h1>Current Player: {{ player }}</h1>
-
-<button (click)="newGame()">Start New Game</button>
-
-<main>
-    <app-square 
-    *ngFor="let val of squares;let i = index"
-    [value]="val"
-    [disableBoard]="winner !== null"
-    (click)="makeMove(i)"></app-square>
-</main>
-
-<h2 *ngIf="winner">Player {{ winner }} won the game!</h2>
+<div class="hero min-h-screen bg-base-200">
+    <div class="hero-content text-center">
+        <div class="m-2">
+            <h1 class="">Current Player: {{ player }}</h1>
+            <div>Turn Count: {{turnCount}}</div>
+            <div class="divider"></div>
+            <button class="btn btn-primary font-extrabold " (click)="newGame()">Start New Game</button>
+        </div>
+        <div class="">
+            <main>
+                <app-square
+                 class="border-solid border-warning" 
+                 *ngFor="let val of squares;let i = index" 
+                 [value]="val"
+                 [disableBoard]="winner !== null || isTie(turnCount)" 
+                 [isWinLocation]="getWinLocation(i)"
+                 (click)="makeMove(i)"></app-square>
+            </main>
+            <div class="divider"></div>
+            <!-- <h2>{{winLocation}}</h2> -->
+            <h2 class="text-5xl font-bold text-center text-primary" *ngIf="winner">Player <span
+                    class="text-secondary">{{ winner }}</span> won the game!</h2>
+            <h2 class="text-5xl font-bold w-100 text-center text-info" *ngIf="!winner && isTie(turnCount)">Game is Tie!
+            </h2>
+        </div>
+    </div>
+</div>

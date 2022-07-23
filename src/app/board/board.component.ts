@@ -10,6 +10,8 @@ export class BoardComponent implements OnInit {
   squares!: string[];
   xIsNext!: boolean;
   winner!: string|null;
+  turnCount: number = 1;
+  winLocation!: number[]|null;
 
   constructor() { }
 
@@ -17,10 +19,17 @@ export class BoardComponent implements OnInit {
     this.newGame();
   }
 
+  getWinLocation(id:number): boolean{
+    if(this.winLocation?.includes(id)){return true;}
+    return false;
+  }
+
   newGame(): void{
     console.log("Starting New Game")
+    this.turnCount = 0;
     this.squares = Array(9).fill(null);
     this.winner = null;
+    this.winLocation = null;
     this.xIsNext = true;
   }
 
@@ -31,6 +40,7 @@ export class BoardComponent implements OnInit {
   makeMove(idx: number){
     console.log(this.player + " Clicked at " + idx)
     if(!this.squares[idx]){
+      this.turnCount++;
       this.squares.splice(idx,1, this.player);
       this.xIsNext = !this.xIsNext;
     }
@@ -56,9 +66,14 @@ export class BoardComponent implements OnInit {
         this.squares[a] === this.squares[b] &&
         this.squares[a] === this.squares[c]
         ) {
+          this.winLocation = [a,b,c];
           return this.squares[a];
         }
     }
     return null;
+  }
+
+  isTie(turnCount:number): boolean{
+    return turnCount >= 9;
   }
 }
