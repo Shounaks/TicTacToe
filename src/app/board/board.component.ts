@@ -74,6 +74,10 @@ export class BoardComponent implements OnInit {
   }
 
   isTie(turnCount:number): boolean{
-    return turnCount >= 9;
+    return !this.winner && turnCount >= 9;
+  }
+
+  showRetryButton() : boolean{
+    return this.isTie(this.turnCount) || (this.winner !== null);
   }
 }

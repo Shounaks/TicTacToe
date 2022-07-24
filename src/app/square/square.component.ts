@@ -3,7 +3,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 @Component({
   selector: 'app-square',
   template: `
-    <button [ngClass]="{'font-extrabold text-7xl border-2': true,'bg-primary':isWinLocation}" [disabled]="disableBoard"> <h2> {{value}} </h2> </button>
+    <button [ngClass]="{'bg-base-200 font-extrabold text-7xl border-2': true,'bg-primary':isWinLocation}" [disabled]="disableBoard"> <h2> {{value}} </h2> </button>
   `,
   styleUrls: ['./square.component.scss']
 })

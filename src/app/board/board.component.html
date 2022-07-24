@@ -1,12 +1,13 @@
-<div class="hero min-h-screen bg-base-200">
-    <div class="hero-content text-center">
-        <div class="m-2">
-            <h1 class="">Current Player: {{ player }}</h1>
+<div class="hero min-h-screen md:bg-base-200">
+    <div class="md:hero-content text-center">
+        <div class="m-2 bg-base-300 p-10 rounded-xl font-bold my-20 sm:my-2">
+            <h1 class="">Current Player: <span class="text-primary">{{ player }}</span></h1>
             <div>Turn Count: {{turnCount}}</div>
             <div class="divider"></div>
-            <button class="btn btn-primary font-extrabold " (click)="newGame()">Start New Game</button>
+            <button *ngIf="!this.showRetryButton()" class="btn font-extrabold btn-primary" (click)="newGame()">▶️ Start New Game</button>
+            <button *ngIf="this.showRetryButton()"  class="btn font-extrabold btn-secondary" (click)="newGame()">🔁 Restart </button>
         </div>
-        <div class="">
+        <div class="bg-base-200">
             <main>
                 <app-square
                  class="border-solid border-warning" 
@@ -16,11 +17,11 @@
                  [isWinLocation]="getWinLocation(i)"
                  (click)="makeMove(i)"></app-square>
             </main>
-            <div class="divider"></div>
+            <div class="divider bg-base-200"></div>
             <!-- <h2>{{winLocation}}</h2> -->
             <h2 class="text-5xl font-bold text-center text-primary" *ngIf="winner">Player <span
                     class="text-secondary">{{ winner }}</span> won the game!</h2>
-            <h2 class="text-5xl font-bold w-100 text-center text-info" *ngIf="!winner && isTie(turnCount)">Game is Tie!
+            <h2 class="text-5xl font-bold w-100 text-center text-info" *ngIf="isTie(turnCount)">Game is Tie!
             </h2>
         </div>
     </div>
